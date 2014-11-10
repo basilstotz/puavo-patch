@@ -1,5 +1,8 @@
 #!/bin/sh
 
-hooks/menujson
+for N in $(ls hooks/*); do
+ $N
+done
+
 
 exit
