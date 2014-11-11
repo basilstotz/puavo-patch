@@ -37,7 +37,7 @@ echo "ok"
 
 # run install-patch.sh in chroot
 echo -n "patching ${IMG}.patch.img ..."
-echo "/root/bin/install-patch.sh" | puavo-img-chroot ${IMG}.patch.img
+echo "/install/bin/install-patch.sh" | puavo-img-chroot ${IMG}.patch.img
 echo "ok"
 
 
@@ -53,8 +53,7 @@ rsync -rav  ${IMG}.mnt/var/cache/apt/archives/ ${PATCH_HOME}/var/cache/apt/archi
 echo -n "removing unsued files ..."
 # remove unused files
 rm    ${IMG}.mnt/var/cache/apt/archives/*.deb
-rm -r ${IMG}.mnt/root/bin
-rm -r ${IMG}.mnt/root/debs
+rm -r ${IMG}.mnt/install
 echo "ok"
 
 # umount and remove mountpoint
