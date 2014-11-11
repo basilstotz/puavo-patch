@@ -1,8 +1,0 @@
-#!/bin/sh
-
-for N in $(ls hooks/*); do
- $N
-done
-
-
-exit

@@ -2,7 +2,7 @@
 
 # Data
 PASSWD="WaeGg,fsh."
-EXTRA_PACKAGES="xosview pdfshuffler gummi extremetuxracer enigma cultivation fillets-ng"
+EXTRA_PACKAGES="xosview pdfshuffler gummi extremetuxracer enigma cultivation fillets-ng python-pypdf"
 
 
 # Main
@@ -25,6 +25,9 @@ echo -n "installiere Zusatzpakete ..."
 for P in ${EXTRA_PACKAGES}; do
    apt-get --yes install ${P}
 done
+
+# install missing dependencies
+apt-get --yes -f install
 
 #apt-get --yes clean
 #apt-get --yes autoclean
