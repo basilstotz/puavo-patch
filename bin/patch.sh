@@ -1,7 +1,12 @@
 #!/bin/sh
 
+
+
 # root tree with patch files
-PATCH_HOME="/var/lib/puavo-patch/includes"
+
+DIRNAME=$(dirname ${0})
+
+PATCH_HOME="${DIRNAME}/../includes"
 
 # test and save arg
 if [ $# -ne 1 ]; then echo "usage: $0 IMAGE";exit;fi

@@ -6,6 +6,8 @@ to be placed on bootserver!!!
 
 ## Installation
 
+ // any other dir should be ok too 
+
  cd /var/lib/
 
  git clone https://github.com/basilstotz/puavo-patch.git
