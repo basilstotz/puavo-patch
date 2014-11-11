@@ -7,6 +7,9 @@ PATCH_HOME="/var/lib/puavo-patch/includes"
 if [ $# -ne 1 ]; then echo "usage: $0 IMAGE";exit;fi
 IMG=$1
 
+cd /opt/ltsp/images/
+
+
 # if exists, remove old ext4.img
 if [ -e ${IMG}.patch.img ]; then
    echo -n "removing ${IMG}.patch.img ..." 
