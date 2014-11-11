@@ -48,5 +48,9 @@ for N in $(ls /install/debs/*.deb); do
 done
 echo "ok"
 
+# update /opt/webmenu/menu-xdg.json
 
+echo -n "updating /opt/webmenu/menu-xdg.json"
+webmenu-xdg | /usr/share/bin/webmenu-prepare.sh > /opt/webmenu/menu-xdg.json
+echo "ok"
 exit
