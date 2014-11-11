@@ -50,6 +50,9 @@ mkdir ${IMG}.mnt
 mount -o loop ${IMG}.patch.img ${IMG}.mnt
 
 # sync /var/cache/apt/archives/* to PATCH_HOME
+if ! [ -d ${PATCH_HOME}/var/cache/apt/archives ]; then
+   mkdir -p ${PATCH_HOME}/var/cache/apt/archives
+fi
 echo "rsync -rav  ${IMG}.mnt/var/cache/apt/archives/ ${PATCH_HOME}/var/cache/apt/archives"
 rsync -rav  ${IMG}.mnt/var/cache/apt/archives/ ${PATCH_HOME}/var/cache/apt/archives 
 
