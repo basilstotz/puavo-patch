@@ -32,8 +32,17 @@ echo "ok"
 
 ## create mountpoint for ext4.img and mount it
 echo -n "copying files to ${IMG}.patch.img ..."
+
 mkdir ${IMG}.mnt
-mount -o loop ${IMG}.patch.img ${IMG}.mnt
+mkdir ${IMG}.rofs
+mkdir ${IMG}.rwfs
+
+#mount -o loop ${IMG}.patch.img ${IMG}.mnt
+mount -o loop ${IMG}.patch.img ${IMG}.rofs
+
+mount -t overlayfs -o rw,upperdir=${IMG}.rwfs,lowerdir=${IMG}.rofs  overlayfs ${IMG}.mnt
+
+
 
 # copy patch files from PATCH_HOME to mount point
 cp -r ${PATCH_HOME}/* ${IMG}.mnt/.
