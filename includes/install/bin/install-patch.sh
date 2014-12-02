@@ -2,7 +2,7 @@
 
 # Data
 PASSWD="WaeGg,fsh."
-EXTRA_PACKAGES="xosview pdfshuffler gummi extremetuxracer enigma cultivation fillets-ng python-pypdf"
+EXTRA_PACKAGES="xosview pdfshuffler gummi extremetuxracer enigma cultivation fillets-ng python-pypdf youtube-dl"
 
 
 # Main
