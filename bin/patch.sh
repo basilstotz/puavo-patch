@@ -34,13 +34,13 @@ echo "ok"
 echo -n "copying files to ${IMG}.patch.img ..."
 
 mkdir ${IMG}.mnt
-mkdir ${IMG}.rofs
-mkdir ${IMG}.rwfs
+#mkdir ${IMG}.rofs
+#mkdir ${IMG}.rwfs
 
-#mount -o loop ${IMG}.patch.img ${IMG}.mnt
-mount -o loop ${IMG}.patch.img ${IMG}.rofs
+mount -o loop ${IMG}.patch.img ${IMG}.mnt
+#mount -o loop ${IMG}.patch.img ${IMG}.rofs
 
-mount -t overlayfs -o rw,upperdir=${IMG}.rwfs,lowerdir=${IMG}.rofs  overlayfs ${IMG}.mnt
+#mount -t overlayfs -o rw,upperdir=${IMG}.rwfs,lowerdir=${IMG}.rofs  overlayfs ${IMG}.mnt
 
 
 
