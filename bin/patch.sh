@@ -81,8 +81,8 @@ umount ${IMG}.mnt
 rmdir ${IMG}.mnt
 echo "ok"
 
-VERSION=$(date +%Y%m%d_%H%M)
-IMAGE="ltsp-bubendorf-${IMG}_${VERSION}.img"
+VERSION=$(date +%Y.%m.%d_%H.%M)
+IMAGE="ltsp-amxa-${IMG}_${VERSION}.img"
 # compress ext4.img to ./tmp/squashfs.img
 
 echo -n "bulding  $IMAGE..."
