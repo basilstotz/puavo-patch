@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Data
-PASSWD="WaeGg,fsh."
+PASSWD=""
 EXTRA_PACKAGES="xosview pdfshuffler gummi extremetuxracer enigma cultivation fillets-ng python-pypdf youtube-dl"
 
 
