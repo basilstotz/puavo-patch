@@ -3,7 +3,7 @@
 # Data
 PASSWD=""
 EXTRA_PACKAGES="xosview pdfshuffler gummi extremetuxracer enigma cultivation
-                fillets-ng python-pypdf youtube-dl fonts-crosextra-carlito"
+                fillets-ng python-pypdf youtube-dl fonts-crosextra-carlito impressive"
 
 
 # Main
