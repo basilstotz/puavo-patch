@@ -54,6 +54,6 @@ echo "ok"
 # update /opt/webmenu/menu-xdg.json
 
 echo -n "updating /opt/webmenu/menu-xdg.json"
-webmenu-xdg | /usr/share/bin/webmenu-prepare.sh > /opt/webmenu/menu-xdg.json
+LANGUAGE=de_CH webmenu | /usr/share/bin/webmenu-prepare.sh > /opt/webmenu/menu-xdg.json
 echo "ok"
 exit
