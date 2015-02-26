@@ -4,7 +4,7 @@
 PASSWD=""
 
 EXTRA_PACKAGES="xosview pdfshuffler gummi extremetuxracer enigma fillets-ng python-pypdf 
-                youtubte-dl fonts-crosextra-carlito impressive autossh"
+                youtube-dl fonts-crosextra-carlito impressive autossh"
 
 if test -z "$PASSWD"; then echo "pls set password!"; exit 1; fi
 
