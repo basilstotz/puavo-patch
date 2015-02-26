@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# this runs in image chroot!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 # Data
 PASSWD=""
 
