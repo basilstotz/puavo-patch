@@ -34,7 +34,7 @@ rm Release.key
 
 echo 'deb http://download.opensuse.org/repositories/isv:/ownCloud:/desktop/Ubuntu_14.04/ /' >> /etc/apt/sources.list.d/owncloud-client.list"
 apt-get update
-apt-get install owncloud-client
+apt-get --yes install owncloud-client
 
 
 
