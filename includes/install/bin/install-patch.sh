@@ -7,7 +7,8 @@ PASSWD=""
 
 EXTRA_PACKAGES="xosview pdfshuffler 
                 gummi  texlive texlive-lang-german texlive-lang-french texlive-lang-english texlive-latex-extra 
-                extremetuxracer enigma fillets-ng python-pypdf youtube-dl fonts-crosextra-carlito impressive autossh"
+                extremetuxracer enigma fillets-ng python-pypdf youtube-dl 
+                fonts-crosextra-carlito fonts-crosextra-caladea impressive autossh"
 
 if test -z "$PASSWD"; then echo "pls set password!"; exit 1; fi
 
@@ -26,6 +27,18 @@ echo -n "installiere Zusatzpakete ..."
 #apt-get --yes update
 
 #apt-get --yes autoremove
+
+wget http://download.opensuse.org/repositories/isv:ownCloud:desktop/Ubuntu_12.0\
+4/Release.key
+apt-key add - < Release.key
+rm Release.key
+
+sh -c "echo 'deb http://download.opensuse.org/repositories/isv:/ownCloud:/deskt\
+op/Ubuntu_14.04/ /' >> /etc/apt/sources.list.d/owncloud-client.list"
+apt-get update
+apt-get install owncloud-client
+
+
 
 
 for P in ${EXTRA_PACKAGES}; do
