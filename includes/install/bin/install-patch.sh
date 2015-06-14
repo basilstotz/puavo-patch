@@ -68,8 +68,12 @@ echo "ok"
 # update /opt/webmenu/menu-xdg.json
 
 echo -n "updating webmenu ..."
-cp /opt/webmenu/menu.json /etc/webmenu/.
-cp /opt/webmenu/config.json /etc/webmenu/.
+cp /opt/webmenu/menu-default.json /etc/webmenu/menu.json
+cp /opt/webmenu/menu-default.json /opt/webmenu/menu.json
+
+cp /opt/webmenu/config-default.json /etc/webmenu/config.json
+cp /opt/webmenu/config-default.json /opt/webmenu/config.json
+
 
 # LANGUAGE=de_CH webmenu | /usr/share/bin/webmenu-prepare.sh > /opt/webmenu/menu-xdg.json
 echo "ok"
