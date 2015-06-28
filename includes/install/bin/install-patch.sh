@@ -70,6 +70,7 @@ echo "ok"
 echo -n "updating webmenu ..."
 cp /opt/webmenu/menu-default.json /etc/webmenu/menu.json
 cp /opt/webmenu/menu-default.json /opt/webmenu/menu.json
+cp /opt/webmenu/menu-default.json /etc/webmenu/personally-administered-device/menu.json
 
 cp /opt/webmenu/config-default.json /etc/webmenu/config.json
 cp /opt/webmenu/config-default.json /opt/webmenu/config.json
