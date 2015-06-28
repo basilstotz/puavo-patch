@@ -65,6 +65,11 @@ for N in $(ls /install/debs/*.deb); do
 done
 echo "ok"
 
+# install missing dependencies
+apt-get --yes -f install
+
+
+
 # update /opt/webmenu/menu-xdg.json
 
 echo -n "updating webmenu ..."
