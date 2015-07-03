@@ -28,7 +28,7 @@ to be placed on bootserver or any other puavo device!!!
 ## Patch
 
 
-# cd to the place where the images are
+ cd to the place where the images are
 
   cd /opt/ltsp/images/
 
