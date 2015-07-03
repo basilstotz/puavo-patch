@@ -1,6 +1,6 @@
-*.class
 
 *.deb
 *.img
 
+*.deb.off
 
