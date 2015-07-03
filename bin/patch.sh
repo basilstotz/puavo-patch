@@ -58,7 +58,7 @@ echo "ok"
 
 # run install-patch.sh in chroot
 echo -n "patching ${IMG}.patch.img ..."
-echo "/install/bin/install-patch.sh" | puavo-img-chroot ${IMG}.patch.img
+echo "sh /install/bin/install-patch.sh" | puavo-img-chroot ${IMG}.patch.img
 echo "ok"
 
 
