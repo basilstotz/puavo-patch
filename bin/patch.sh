@@ -12,8 +12,12 @@ PATCH_HOME="${DIRNAME}/../includes"
 if [ $# -ne 1 ]; then echo "usage: $0 IMAGE";exit;fi
 IMG=$1
 
-cd /opt/ltsp/images/
+#cd /opt/ltsp/images/
 
+if ! test -f ${IMG}.img; then
+    echo "${IMG}.img not found. Did you cd to wright place?"
+    exit 1
+fi
 
 # if exists, remove old ext4.img
 if [ -e ${IMG}.patch.img ]; then
