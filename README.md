@@ -1,7 +1,7 @@
 puavo-patch
 ===========
 
-to be placed on bootserver!!!
+to be placed on bootserver or any other puavo device!!!
 
 
 ## Installation
@@ -28,7 +28,7 @@ to be placed on bootserver!!!
 ## Patch
 
 
-  // nice, not necessary
+# cd to the place where the images are
 
   cd /opt/ltsp/images/
 
