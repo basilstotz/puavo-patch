@@ -8,7 +8,7 @@ DIRNAME=$(dirname ${0})
 
 PATCH_HOME="${DIRNAME}/../includes"
 PUAVO_DIR_CHROOT="./puavo-dir-chroot"
-PUAVO_DIR_CLONE="./puavo-dir-clone"
+#PUAVO_DIR_CLONE="./puavo-dir-clone"
 
 # test and save arg
 if [ $# -ne 1 ]; then echo "usage: $0 IMAGE";exit;fi
@@ -35,20 +35,26 @@ fi
 #puavo-img-clone ${IMG}.img ${IMG}.patch.img
 #echo "ok"
 
-
-# make base image writable
 echo "umounting ovrl and rofs"
 umount ${IMG}.ovrl
 umount ${IMG}.rofs
-echo "cleaning rwfs" 
-#clean rwfs
-rm -r ${IMG}.rwfs/*
+
 
 #make mountpounts
 if ! test -d ${IMG}.ovrl; then mkdir ${IMG}.ovrl;fi
 if ! test -d ${IMG}.rofs; then mkdir ${IMG}.rofs;fi
 if ! test -d ${IMG}.rwfs; then mkdir ${IMG}.rwfs;fi
 
+echo "updating rwfs" 
+#clean rwfs
+# copy patch files from PATCH_HOME to mount point
+rsync -rav --size-only --delete ${PATCH_HOME}/* ${IMG}.rwfs/.
+
+#rm -r ${IMG}.rwfs/*
+
+
+
+# make base image writable
 
 #mount image
 mount -o loop ${IMG}.img ${IMG}.rofs
@@ -63,8 +69,6 @@ mount -t overlayfs -o rw,upperdir=${IMG}.rwfs,lowerdir=${IMG}.rofs  overlayfs ${
 echo -n "copying files to ${IMG}.ovrl ..."
 
 
-# copy patch files from PATCH_HOME to mount point
-cp -r ${PATCH_HOME}/* ${IMG}.ovrl/.
 
 # umount and remove mountpoint
 #umount ${IMG}.mnt
@@ -89,7 +93,7 @@ if ! [ -d ${PATCH_HOME}/var/cache/apt/archives ]; then
    mkdir -p ${PATCH_HOME}/var/cache/apt/archives
 fi
 echo "rsync -rav  ${IMG}.mnt/var/cache/apt/archives/ ${PATCH_HOME}/var/cache/apt/archives"
-rsync -rav  ${IMG}.ovrl/var/cache/apt/archives/ ${PATCH_HOME}/var/cache/apt/archives 
+rsync -rav --size-only  ${IMG}.ovrl/var/cache/apt/archives/ ${PATCH_HOME}/var/cache/apt/archives 
 
 echo -n "removing unsued files ..."
 # remove unused files
@@ -106,8 +110,11 @@ VERSION=$(date +%Y.%m.%d_%H.%M)
 IMAGE="ltsp-amxa-${IMG}_${VERSION}.img"
 # compress ext4.img to ./tmp/squashfs.img
 
-echo -n "bulding  $IMAGE..."
-${PUAVO_DIR_CLONE} -t squashfs ${IMG}.ovrl $IMAGE
+echo -n "bulding  squash $IMAGE..."
+#${PUAVO_DIR_CLONE} -t squashfs ${IMG}.ovrl $IMAGE
+mkdir -p ${IMG}.ovrl/etc/ltsp/
+echo "${IMAGE}" > ${IMG}.ovrl/etc/ltsp/this_ltspimage_name
+mksquashfs ${IMG}.ovrl ${IMAGE} -noappend -no-recovery
 echo "ok"
 
 #umount ${IMG}.ovrl
