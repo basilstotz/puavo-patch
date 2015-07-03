@@ -5,7 +5,7 @@
 # Data
 PASSWD=""
 
-EXTRA_PACKAGES="xosview pdfshuffler pauker avidemux handbrake
+EXTRA_PACKAGES="xosview pdfshuffler pauker avidemux handbrake virt-manager 
                 gummi  texlive texlive-lang-german texlive-lang-french texlive-lang-english texlive-latex-extra 
                 extremetuxracer enigma fillets-ng python-pypdf youtube-dl 
                 fonts-crosextra-carlito fonts-crosextra-caladea impressive autossh"
