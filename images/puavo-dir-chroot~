@@ -102,6 +102,7 @@ trap on_exit EXIT
 tmpdir_G=$(mktemp -d)
 
 #mount ${mountverbose_G} -o loop "${imgfile_G}" "${tmpdir_G}"
+#mkdir "${tmpdir_G}"
 mount ${mountverbose_G} -o bind "${imgfile_G}" "${tmpdir_G}"
 
 

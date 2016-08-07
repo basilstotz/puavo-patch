@@ -1,6 +1,6 @@
 #!/bin/sh
 
-apt-get --yes install qemu-kvm squashfs-tools
+
 
 # root tree with patch files
 
@@ -39,7 +39,7 @@ echo "umounting ovrl and rofs"
 umount ${IMG}.ovrl
 umount ${IMG}.rofs
 
-#rm -r tmp.* &
+rm -r tmp.* &
 
 #make mountpounts
 if ! test -d ${IMG}.ovrl; then mkdir ${IMG}.ovrl;fi
@@ -57,7 +57,7 @@ rm -r ${IMG}.rwfs/*
 # make base image writable
 
 #mount image
-mount -r -o loop ${IMG}.img ${IMG}.rofs
+mount -o loop ${IMG}.img ${IMG}.rofs
 #mount -o loop ${IMG}.patch.img ${IMG}.rofs
 
 #
@@ -94,7 +94,7 @@ echo -n "caching *.debs ..."
 if ! [ -d ${PATCH_HOME}/var/cache/apt/archives ]; then
    mkdir -p ${PATCH_HOME}/var/cache/apt/archives
 fi
-echo "rsync -rav  ${IMG}.ovrl/var/cache/apt/archives/ ${PATCH_HOME}/var/cache/apt/archives"
+echo "rsync -rav  ${IMG}.mnt/var/cache/apt/archives/ ${PATCH_HOME}/var/cache/apt/archives"
 rsync -rav --delete --size-only  ${IMG}.ovrl/var/cache/apt/archives/ ${PATCH_HOME}/var/cache/apt/archives 
 
 echo -n "removing unsued files ..."
@@ -127,13 +127,6 @@ echo -n "updating nbd-exports and tftpboot ..."
 #puavo-bootserver-generate-nbd-exports
 #puavo-bootserver-update-tftpboot
 echo "ok"
-
-echo "umounting ovrl and rofs"
-umount ${IMG}.ovrl
-umount ${IMG}.rofs
-
-
-
 
 # bye
 exit
