@@ -20,13 +20,6 @@ if test -z "$PASSWD"; then echo "pls set password!"; exit 1; fi
 
 # Main
 
-#moved to package amxa-client-extra
-
-#amxa-client-extra
-#update-rc.d cleanimages defaults
-#update-rc.d googlesafesearch defaults
-#chmod +s /usr/local/bin/amxa-client-http-filter
-
 ###########################to be moved to deb package#################33
 # set root passwd
 echo "root:${PASSWD}" | chpasswd 

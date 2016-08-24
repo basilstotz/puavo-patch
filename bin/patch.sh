@@ -116,7 +116,8 @@ echo -n "bulding  squash $IMAGE..."
 #${PUAVO_DIR_CLONE} -t squashfs ${IMG}.ovrl $IMAGE
 mkdir -p ${IMG}.ovrl/etc/ltsp/
 echo "${IMAGE}" > ${IMG}.ovrl/etc/ltsp/this_ltspimage_name
-mksquashfs ${IMG}.ovrl ${IMAGE}.img -noappend -no-recovery
+mksquashfs ${IMG}.ovrl ${IMAGE}.img  -noappend -no-recovery
+# more opts: -b 1048576 -comp xz
 echo "ok"
 
 #umount ${IMG}.ovrl

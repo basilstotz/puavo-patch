@@ -1,0 +1,186 @@
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides:          skeleton
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Example initscript
+# Description:       This file should be used to construct scripts to be
+#                    placed in /etc/init.d.
+### END INIT INFO
+
+# Author: Foo Bar <foobar@baz.org>
+#
+# Please remove the "Author" lines above and replace them
+# with your own name if you copy and modify this script.
+
+# Do NOT "set -e"
+
+#
+# Function that starts the daemon/service
+#
+do_start()
+{
+   logger -t amxa add google saesearch
+   if cat /etc/hosts|grep -q -v www.google.com; then
+
+      echo "" >> /etc/hosts
+      echo "# force safesaerch for google" >> /etc/hosts
+      echo "216.239.38.120 www.google.com www.google.ad www.google.ae www.google.com.af www.google.com.ag" >> /etc/hosts 
+      echo "216.239.38.120 www.google.com.ai www.google.al www.google.am www.google.co.ao www.google.com.ar" >> /etc/hosts 
+      echo "216.239.38.120 www.google.as www.google.at www.google.com.au www.google.az www.google.ba www.google.com.bd" >> /etc/hosts 
+      echo "216.239.38.120 www.google.be www.google.bf www.google.bg www.google.com.bh www.google.bi www.google.bj" >> /etc/hosts
+      echo "216.239.38.120 www.google.com.bn www.google.com.bo www.google.com.br www.google.bs www.google.bt" >> /etc/hosts 
+      echo "216.239.38.120 www.google.co.bw www.google.by www.google.com.bz www.google.ca www.google.cd www.google.cf" >> /etc/hosts 
+      echo "216.239.38.120 www.google.cg www.google.ch www.google.ci www.google.co.ck www.google.cl www.google.cm" >> /etc/hosts
+      echo "216.239.38.120  www.google.cn www.google.com.co www.google.co.cr www.google.com.cu www.google.cv" >> /etc/hosts 
+      echo "216.239.38.120 www.google.com.cy www.google.cz www.google.de www.google.dj www.google.dk www.google.dm" >> /etc/hosts
+      echo "216.239.38.120  www.google.com.do www.google.dz www.google.com.ec www.google.ee www.google.com.eg" >> /etc/hosts 
+      echo "216.239.38.120 www.google.es www.google.com.et www.google.fi www.google.com.fj www.google.fm www.google.fr" >> /etc/hosts
+      echo "216.239.38.120  www.google.ga www.google.ge www.google.gg www.google.com.gh www.google.com.gi www.google.gl" >> /etc/hosts
+      echo "216.239.38.120  www.google.gm www.google.gp www.google.gr www.google.com.gt www.google.gy www.google.com.hk" >> /etc/hosts
+      echo "216.239.38.120 www.google.hn www.google.hr www.google.ht www.google.hu www.google.co.id www.google.ie" >> /etc/hosts 
+      echo "216.239.38.120 www.google.co.il www.google.im www.google.co.in www.google.iq www.google.is www.google.it" >> /etc/hosts 
+      echo "216.239.38.120 www.google.je www.google.com.jm www.google.jo www.google.co.jp www.google.co.ke" >> /etc/hosts 
+      echo "216.239.38.120 www.google.com.kh www.google.ki www.google.kg www.google.co.kr www.google.com.kw" >> /etc/hosts 
+      echo "216.239.38.120 www.google.kz www.google.la www.google.com.lb www.google.li www.google.lk www.google.co.ls" >> /etc/hosts 
+      echo "216.239.38.120 www.google.lt www.google.lu www.google.lv www.google.com.ly www.google.co.ma www.google.md" >> /etc/hosts 
+      echo "216.239.38.120 www.google.me www.google.mg www.google.mk www.google.ml www.google.com.mm www.google.mn" >> /etc/hosts 
+      echo "216.239.38.120 www.google.ms www.google.com.mt www.google.mu www.google.mv www.google.mw www.google.com.mx" >> /etc/hosts 
+      echo "216.239.38.120 www.google.com.my www.google.co.mz www.google.com.na www.google.com.nf www.google.com.ng" >> /etc/hosts 
+      echo "216.239.38.120 www.google.com.ni www.google.ne www.google.nl www.google.no www.google.com.np www.google.nr" >> /etc/hosts 
+      echo "216.239.38.120 www.google.nu www.google.co.nz www.google.com.om www.google.com.pa www.google.com.pe" >> /etc/hosts 
+      echo "216.239.38.120 www.google.com.pg www.google.com.ph www.google.com.pk www.google.pl www.google.pn" >> /etc/hosts 
+      echo "216.239.38.120 www.google.com.pr www.google.ps www.google.pt www.google.com.py www.google.com.qa" >> /etc/hosts 
+      echo "216.239.38.120 www.google.ro www.google.ru www.google.rw www.google.com.sa www.google.com.sb www.google.sc" >> /etc/hosts 
+      echo "216.239.38.120 www.google.se www.google.com.sg www.google.sh www.google.si www.google.sk www.google.com.sl" >> /etc/hosts 
+      echo "216.239.38.120 www.google.sn www.google.so www.google.sm www.google.sr www.google.st www.google.com.sv" >> /etc/hosts 
+      echo "216.239.38.120 www.google.td www.google.tg www.google.co.th www.google.com.tj www.google.tk www.google.tl" >> /etc/hosts 
+      echo "216.239.38.120 www.google.tm www.google.tn www.google.to www.google.com.tr www.google.tt www.google.com.tw" >> /etc/hosts 
+      echo "216.239.38.120 www.google.co.tz www.google.com.ua www.google.co.ug www.google.co.uk www.google.com.uy" >> /etc/hosts 
+      echo "216.239.38.120 www.google.co.uz www.google.com.vc www.google.co.ve www.google.vg www.google.co.vi" >> /etc/hosts 
+      echo "216.239.38.120 www.google.com.vn www.google.vu www.google.ws www.google.rs www.google.co.za" >> /etc/hosts 
+      echo "216.239.38.120 www.google.co.zm www.google.co.zw www.google.cat" >> /etc/hosts
+
+   
+   fi
+
+###################################################################
+#kann weg
+
+if test -n "$PUAVO_TAG_HTTPFILTER"; then
+    logger -t amxa httpfilter tag is on
+fi
+
+###################################################################
+   if test "$(cat /etc/puavo/hosttype)" = "laptop"; then
+          logger -t amxa laptop cleaning images
+       if test -n "$PUAVO_TAG_AMXATAG"; then
+          logger -t amxa cleaning images started
+          COUNT=0;
+          LIST=""
+          # get the two latest images 
+          for NAME in $(ls -t /images/ltsp-amxa*); do
+               COUNT=$(( $COUNT + 1 ))
+               case $COUNT in
+                 1) LIST="$LIST $NAME "
+                    ;;
+                 2) LIST="$LIST $NAME "
+                    ;;
+                 *) echo -n ""
+                    ;;
+               esac
+          done 
+          # remove all images, but the previous list
+          for NAME in $(ls /images/ltsp*); do
+             if echo $LIST|grep -q -v $NAME; then
+               echo "rm $NAME"
+               rm $NAME
+             fi
+          done 
+          # create links
+          COUNT=0
+          for NAME in $(ls -t /images/ltsp-amxa*); do
+               COUNT=$(( $COUNT + 1 ))
+               case $COUNT in
+                 1) echo "ln $NAME /images/ltsp.img"
+                    ln $NAME /images/ltsp.img
+                    ;;
+                 2) echo "ln $NAME /images/ltsp-backup.img"
+                    ln $NAME /images/ltsp-backup.img
+                    ;;
+                 *) echo -n ""
+                    ;;
+               esac
+          done
+          logger -t amxa the images are cleaned now    
+       else
+          echo "use puavo tag "amxatag" to acitvate. exiting ..."
+          exit 1
+       fi
+   else
+       echo "only latops allowed. exiting ..."
+       exit 1
+   fi
+   exit 0
+}
+
+#
+# Function that stops the daemon/service
+#
+do_stop()
+{
+  echo ""
+}
+
+#
+# Function that sends a SIGHUP to the daemon/service
+#
+do_reload() {
+  do_stop
+  do_start
+}
+
+case "$1" in
+  start)
+        do_start
+	;;
+  stop)
+        do_stop
+	;;
+  restart)
+        do_reload
+	;;
+  *)
+	#echo "Usage: $SCRIPTNAME {start|stop|restart}" >&2
+	echo "Usage: $SCRIPTNAME {start|stop|restart}" >&2
+	exit 3
+	;;
+esac
+
+#                  case $COUNT in
+#                  1)
+#                     if test -e /images/ltsp.img; then
+#                          if find /images -maxdepth 1 -samefile /images/ltsp.img | grep -q -v $NAME; then
+#                             echo "rm /images/ltsp.img"
+#                          fi
+#                      fi
+#                      if ! test -e /images/ltsp.img; then
+#                          echo "ln $NAME /images/ltsp.img"
+#                      fi 
+#                      ;;
+#                  2)
+#                    if test -e /images/ltsp-backup.img; then
+#                         if find /images -maxdepth 1 -samefile /images/ltsp-backup.img | grep -q -v $NAME; then
+#                             echo "rm /images/ltsp-backup.img"
+#                         fi
+#                     fi
+#                     if ! test -e /images/ltsp-backup.img; then
+#                         echo "ln $NAME /images/ltsp-backup.img" 
+#                     fi
+#                     ;;
+#                  *)
+#                     find /images/ -maxdepth 1 -samefile $NAME -exec echo \{\} \;                   ;;
+#                  esac
+

@@ -1,0 +1,39 @@
+#!/bin/sh
+
+cd /images
+
+LTSP=$(find . -maxdepth 1 -inum $(ls -i ltsp.img|cut -d\  -f1) -print | grep -v ltsp.img)
+LTSP_BACKUP=$(find . -maxdepth 1 -inum $(ls -i ltsp-backup.img|cut -d\  -f1) -print | grep -v ltsp-backup.img)
+
+echo L: $LTSP
+echo B: $LTSP_BACKUP
+
+CMDLINE=$(cat /proc/cmdline)
+
+for I in ltsp.img ltsp-backup.img $LTSP $LTSP_BACKUP; do
+  if echo $CMDLINE|grep -q $I; then
+    echo A: $I
+  fi
+done
+
+echo
+
+for I in ltsp.img ltsp-backup.img; do
+  if echo $CMDLINE|grep -v -q $I; then
+    echo A: $I
+  fi
+done
+
+echo
+
+for I in $LTSP $LTSP_BACKUP; do
+  if echo $CMDLINE|grep -v -q $I; then
+    echo A: $I
+  fi
+done
+
+
+# mv actuell to backup
+
+
+exit
