@@ -123,30 +123,5 @@ apt-get --yes remove racket racket-common racket-doc fritzing fritzing-data glob
 #apt-get --yes autoremove
 
 
-#if test -e /etc/ltsp/this_ltspimage_name; then
-# cp /etc/ltsp/this_ltspimage_name /etc/ltsp/base_ltspimage_name
-#fi
-
-# update /opt/webmenu/menu-xdg.json
-
-#echo -n "updating webmenu ..."
-#cp /opt/webmenu/menu-default.json /etc/webmenu/menu.json
-#cp /opt/webmenu/menu-default.json /opt/webmenu/menu.json
-#cp /opt/webmenu/menu-default.json /etc/webmenu/personally-administered-device/menu.json
-
-#cp /opt/webmenu/config-default.json /etc/webmenu/config.json
-#cp /opt/webmenu/config-default.json /opt/webmenu/config.json
-
-#dirty fix for broken png
-#rm /usr/share/pixmaps/plt*
-#cp /usr/share/pixmaps/leo.png /usr/share/pixmaps/plt.png
-
-#remove remote assistance app, for now
-#rm /etc/xdg/autostart/puavo-remote-assistance-applet.desktop
-
-#LANGUAGE=de webmenu-xdg | /usr/share/bin/webmenu-prepare.sh > /opt/webmenu/menu-xdg.json
-#LANGUAGE=fr webmenu-xdg | /usr/share/bin/webmenu-prepare.sh > /opt/webmenu/menu-fr.xdg.json
-#LANGUAGE=en webmenu-xdg | /usr/share/bin/webmenu-prepare.sh > /opt/webmenu/menu-en.xdg.json
-
 echo "ok"
 exit
