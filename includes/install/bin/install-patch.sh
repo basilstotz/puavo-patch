@@ -13,7 +13,7 @@ EXTRA_PACKAGES="xosview pdfshuffler pdftk djmount avidemux handbrake
                 fonts-crosextra-carlito fonts-crosextra-caladea impressive autossh
 		gcompris-sound-de gcompris-sounds-fr gcompris-sounds-en
                 firefox-locale-en firefox-locale-de firefox-locale-fr
-                gparted sox"
+                gparted sox debian-goodies unoconv"
        
 
 if test -z "$PASSWD"; then echo "pls set password!"; exit 1; fi
@@ -67,7 +67,7 @@ apt-get --yes update
 #apt-get --yes upgrade
 
 apt-get --yes install owncloud-client
-#apt-get --yes install activ-meta-de
+apt-get --yes install activ-meta-de
 apt-get --yes install aseba
 #apt-get --yes install dropbox
 
@@ -111,13 +111,19 @@ echo "ok"
 apt-get --yes -f install
 
 #remove big not important packages
-apt-get --yes remove extremetuxracer extremetuxracer-data extremetuxracer-extras  supertuxkart supertuxkart-data  xmoto xmoto-data neverball neverball-common neverball-data scribus-doc lilypond-doc-html liypond-doc-pdf qt4-doc ubunutu-docs gimp-help-sv libreoffice-help-sv libreoffice-helt-fi
-
+PURGEA=" extremetuxracer extremetuxracer-data extremetuxracer-extras  supertuxkart supertuxkart-data  xmoto xmoto-data neverball neverball-common neverball-data scribus-doc qt4-doc gimp-help-sv libreoffice-help-sv libreoffice-help-fi "
 #remove unused texlive packages
-apt-get --yes remove texlive-latex-extra-doc texlive-fonts-extra texlive-fonts-extra-doc texlive-pictures-doc texlive-pstricks-doc texlive-latex-base-doc texlive-latex-recommended-doc texlive-pstricks-doc
+PURGEB=" texlive-latex-extra-doc texlive-fonts-extra texlive-fonts-extra-doc texlive-pictures-doc texlive-pstricks-doc texlive-latex-base-doc texlive-latex-recommended-doc texlive-pstricks-doc "
+#remove packages for secondary and ternary schools 
+PURGEC= "racket racket-common racket-doc fritzing fritzing-data globilab vstloggerpro cmaptools maxima tmcbeans pycharm maxima-doc " 
+#
+for N in $PURGEA $PURGEB $PURGEC; do
+  apt-get --yes purge $N
+done
 
-#remove packages for secondary and ternary schools
-apt-get --yes remove racket racket-common racket-doc fritzing fritzing-data globilab vstloggerpro cmaptools maxima tmcbeans pycharm maxima-doc 
+
+dpkg --list |grep "^rc" | cut -d " " -f 3 | xargs sudo dpkg --purge
+
 
 #apt-get --yes autoremove
 #apt-get --yes autoremove
