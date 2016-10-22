@@ -1,0 +1,14 @@
+all:
+	build
+	genfiffs
+	publish
+
+build:
+	../puavo-patch/bin/patch.sh trusty|tee build.log
+
+gendiffs:
+	./gendiffs.sh
+
+publish:
+	./push-image.sh 
+

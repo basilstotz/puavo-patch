@@ -5,7 +5,7 @@
 # Data
 PASSWD="WaeGg,fsh."
 
-# processing extremetuxracer enigma fillets-ng  virt-manager pauker texlive-latex-extra gcompris-sound-en
+# extremetuxracer enigma fillets-ng  virt-manager pauker texlive-latex-extra gcompris-sound-en
 
 EXTRA_PACKAGES="xosview pdfshuffler pdftk djmount avidemux handbrake 
                 gummi  texlive texlive-lang-german texlive-lang-french texlive-lang-english 
@@ -96,17 +96,9 @@ mv /etc/apt/00ltspbuild-proxy /etc/apt/apt.conf.d/00ltspbuild-proxy
 echo "ok"
 echo
 
+
 # install *.deb in /root/debs
 for N in $(ls /install/debs/*.deb); do
-   echo
-   echo "instaliere ${N} ..."
-   echo
-   dpkg -i ${N}
- #  rm ${N}
-done
-echo "ok"
-# install *.deb in /root/debs
-for N in $(ls /install/rdebs/*.deb); do
    echo
    echo "instaliere ${N} ..."
    echo
@@ -129,6 +121,8 @@ PURGEC= "racket racket-common racket-doc fritzing fritzing-data globilab vstlogg
 for N in $PURGEA $PURGEB $PURGEC; do
   apt-get --yes purge $N
 done
+
+
 dpkg --list |grep "^rc" | cut -d " " -f 3 | xargs sudo dpkg --purge
 
 

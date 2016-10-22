@@ -105,15 +105,6 @@ for N in $(ls /install/debs/*.deb); do
  #  rm ${N}
 done
 echo "ok"
-# install *.deb in /root/debs
-for N in $(ls /install/rdebs/*.deb); do
-   echo
-   echo "instaliere ${N} ..."
-   echo
-   dpkg -i ${N}
- #  rm ${N}
-done
-echo "ok"
 
 
 # install missing dependencies

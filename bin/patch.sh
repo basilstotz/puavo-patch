@@ -87,9 +87,6 @@ echo "ok"
 
 ## create mountpoint for ext4.img and mount it
 echo -n "caching *.debs ..."
-#mkdir ${IMG}.mnt
-#mount -o loop ${IMG}.patch.img ${IMG}.mnt
-
 # sync /var/cache/apt/archives/* to PATCH_HOME
 if ! [ -d ${PATCH_HOME}/var/cache/apt/archives ]; then
    mkdir -p ${PATCH_HOME}/var/cache/apt/archives
@@ -97,37 +94,31 @@ fi
 echo "rsync -rav  ${IMG}.ovrl/var/cache/apt/archives/ ${PATCH_HOME}/var/cache/apt/archives"
 rsync -rav --delete --size-only  ${IMG}.ovrl/var/cache/apt/archives/ ${PATCH_HOME}/var/cache/apt/archives 
 
+
 echo -n "removing unsued files ..."
 # remove unused files
 rm    ${IMG}.ovrl/var/cache/apt/archives/*.deb
 rm -r ${IMG}.ovrl/install
 echo "ok"
 
-# umount and remove mountpoint
-#umount ${IMG}.ovrl
-#rmdir ${IMG}.mnt
 echo "ok"
+
 
 VERSION=$(date +%Y-%m-%d-%H%M%S)
 IMAGE="ltsp-amxa-${IMG}-${VERSION}-i386"
-# compress ext4.img to ./tmp/squashfs.img
 
+##make squashfs
+#copy image name to image
+mkdir -p ${IMG}.ovrl/etc/ltsp/
+echo "${IMAGE}.img" > ${IMG}.ovrl/etc/ltsp/this_ltspimage_name
+# compress ext4.img to ./tmp/squashfs.img
 echo -n "bulding  squash $IMAGE..."
 #${PUAVO_DIR_CLONE} -t squashfs ${IMG}.ovrl $IMAGE
-mkdir -p ${IMG}.ovrl/etc/ltsp/
-echo "${IMAGE}" > ${IMG}.ovrl/etc/ltsp/this_ltspimage_name
 mksquashfs ${IMG}.ovrl ${IMAGE}.img  -noappend -no-recovery
 # more opts: -b 1048576 -comp xz
 echo "ok"
 
-#umount ${IMG}.ovrl
-#umount ${IMG}.rofs
 
-# update bootserver
-echo -n "updating nbd-exports and tftpboot ..."
-#puavo-bootserver-generate-nbd-exports
-#puavo-bootserver-update-tftpboot
-echo "ok"
 
 echo "umounting ovrl and rofs"
 umount ${IMG}.ovrl
