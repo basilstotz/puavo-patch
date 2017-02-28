@@ -2,6 +2,14 @@
 
 # this runs in image chroot!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
+FREE="0"
+if test "$1" = "free"; then
+   FREE="1"
+   echo "bulding free version..."
+fi
+
+
+
 # Data
 PASSWD="WaeGg,fsh."
 
@@ -67,9 +75,11 @@ apt-get --yes update
 #apt-get --yes upgrade
 
 apt-get --yes install owncloud-client
-apt-get --yes install activ-meta-de
 apt-get --yes install aseba
-#apt-get --yes install dropbox
+
+if test "$FREE" = "0"; then
+  apt-get --yes install activ-meta-de
+fi
 
 
 #from archive.amxa.ch
@@ -105,14 +115,17 @@ for N in $(ls /install/debs/*.deb); do
  #  rm ${N}
 done
 echo "ok"
+
 # install *.deb in /root/debs
-for N in $(ls /install/rdebs/*.deb); do
-   echo
-   echo "instaliere ${N} ..."
-   echo
-   dpkg -i ${N}
- #  rm ${N}
-done
+if test "$FREE" -eq "0"; then
+   for N in $(ls /install/rdebs/*.deb); do
+      echo
+      echo "instaliere ${N} ..."
+      echo
+      dpkg -i ${N}
+      #  rm ${N}
+   done
+fi
 echo "ok"
 
 
@@ -124,12 +137,14 @@ PURGEA=" extremetuxracer extremetuxracer-data extremetuxracer-extras  supertuxka
 #remove unused texlive packages
 PURGEB=" texlive-latex-extra-doc texlive-fonts-extra texlive-fonts-extra-doc texlive-pictures-doc texlive-pstricks-doc texlive-latex-base-doc texlive-latex-recommended-doc texlive-pstricks-doc "
 #remove packages for secondary and ternary schools 
-PURGEC= "racket racket-common racket-doc fritzing fritzing-data globilab vstloggerpro cmaptools maxima tmcbeans pycharm maxima-doc " 
+#PURGEC= "racket racket-common racket-doc fritzing fritzing-data globilab vstloggerpro cmaptools maxima tmcbeans pycharm maxima-doc "
+PURGEC= " racket-doc maxima-doc " 
 #
 for N in $PURGEA $PURGEB $PURGEC; do
   apt-get --yes purge $N
 done
-dpkg --list |grep "^rc" | cut -d " " -f 3 | xargs sudo dpkg --purge
+
+#dpkg --list |grep "^rc" | cut -d " " -f 3 | xargs sudo dpkg --purge
 
 
 #apt-get --yes autoremove

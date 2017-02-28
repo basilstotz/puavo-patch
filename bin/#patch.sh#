@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if test "$2" = "free"; then
+if test "$1" = "free"; then
   FREE="1"
 else
   FREE="0"
