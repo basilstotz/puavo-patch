@@ -71,11 +71,21 @@ mount -t overlayfs -o rw,upperdir=${IMG}.rwfs,lowerdir=${IMG}.rofs  overlayfs ${
 
 
 
-## create mountpoint for ext4.img and mount it
+
 echo -n "copying files to ${IMG}.ovrl ..."
+
+###########################################################################
 # copy patch files from PATCH_HOME to mount point
+
+#old
 cp -r  ${PATCH_HOME}/* ${IMG}.ovrl/.
 
+#new
+#cp -r  ${PATCH_HOME}/root/.ssh ${IMG}.ovrl/root/.
+#mkdir ${IMG}.ovrl/install
+#mount --bind  ${PATCH_HOME}/install
+
+##########################################################################
 
 
 # umount and remove mountpoint
@@ -95,7 +105,7 @@ fi
 echo "ok"
 
 
-## create mountpoint for ext4.img and mount it
+#########################################################################
 echo -n "caching *.debs ..."
 # sync /var/cache/apt/archives/* to PATCH_HOME
 if ! [ -d ${PATCH_HOME}/var/cache/apt/archives ]; then
@@ -110,6 +120,7 @@ echo -n "removing unsued files ..."
 rm    ${IMG}.ovrl/var/cache/apt/archives/*.deb
 rm -r ${IMG}.ovrl/install
 echo "ok"
+#########################################################################
 
 echo "ok"
 

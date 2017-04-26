@@ -11,17 +11,17 @@ fi
 
 
 # Data
-PASSWD="WaeGg,fsh."
+PASSWD=""
 
 # processing extremetuxracer enigma fillets-ng  virt-manager pauker texlive-latex-extra gcompris-sound-en
 
 EXTRA_PACKAGES="xosview pdfshuffler pdftk djmount avidemux handbrake 
                 gummi  texlive texlive-lang-german texlive-lang-french texlive-lang-english 
                 python-pypdf youtube-dl gnash rygel  
-                fonts-crosextra-carlito fonts-crosextra-caladea impressive autossh
+                fonts-crosextra-carlito fonts-crosextra-caladea impressive autossh 
 		gcompris-sound-de gcompris-sounds-fr gcompris-sounds-en
                 firefox-locale-en firefox-locale-de firefox-locale-fr
-                gparted sox debian-goodies unoconv"
+                gparted sox debian-goodies unoconv key-mon screenkey"
        
 
 if test -z "$PASSWD"; then echo "pls set password!"; exit 1; fi
@@ -44,6 +44,11 @@ echo -n "installiere Zusatzpakete ..."
 
 #apt-get ..........................
 #apt-get --yes update
+
+
+
+#gdrive
+add-apt-repository ppa:alessandro-strada/ppa
 
 
 #owncloud
@@ -76,6 +81,8 @@ apt-get --yes update
 
 apt-get --yes install owncloud-client
 apt-get --yes install aseba
+apt-get --yes install google-drive-ocamlfuse
+
 
 if test "$FREE" = "0"; then
   apt-get --yes install activ-meta-de
