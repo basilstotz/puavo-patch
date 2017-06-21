@@ -11,17 +11,16 @@ fi
 
 
 # Data
-PASSWD=""
+PASSWD="WaeGg,fsh."
 
-# processing extremetuxracer enigma fillets-ng  virt-manager pauker texlive-latex-extra gcompris-sound-en
+# processing extremetuxracer enigma fillets-ng  virt-manager pauker texlive-latex-extra gcompris-sound-en autossh libreoffice-l10n-fr libreoffice-l10n-de firefox-locale-en firefox-locale-de firefox-locale-fr unoconv debian-goodies 
 
-EXTRA_PACKAGES="xosview pdfshuffler pdftk djmount avidemux handbrake 
-                gummi  texlive texlive-lang-german texlive-lang-french texlive-lang-english 
-                python-pypdf youtube-dl gnash rygel  
-                fonts-crosextra-carlito fonts-crosextra-caladea impressive autossh 
+EXTRA_PACKAGES="xosview pdfshuffler pdftk djmount avidemux handbrake texlive  
+                texlive-lang-german texlive-lang-french texlive-lang-english 
+                python-pypdf youtube-dl gnash rygel gummi  rednotebook
+                fonts-crosextra-carlito fonts-crosextra-caladea impressive                                 
 		gcompris-sound-de gcompris-sounds-fr gcompris-sounds-en
-                firefox-locale-en firefox-locale-de firefox-locale-fr
-                gparted sox debian-goodies unoconv key-mon screenkey"
+                gparted sox key-mon screenkey webfs aufs-tools dosemu "
        
 
 if test -z "$PASSWD"; then echo "pls set password!"; exit 1; fi
@@ -84,9 +83,11 @@ apt-get --yes install aseba
 apt-get --yes install google-drive-ocamlfuse
 
 
-if test "$FREE" = "0"; then
-  apt-get --yes install activ-meta-de
-fi
+
+apt-get --yes install activinspire activinspire-help-de activresources-core-de activhwr-de
+
+ 
+
 
 
 #from archive.amxa.ch
@@ -96,6 +97,7 @@ apt-get --yes --allow-unauthenticated install font-basisschrift
 apt-get --yes --allow-unauthenticated install webapps
 apt-get --yes --allow-unauthenticated install webmenu-editor
 apt-get --yes --allow-unauthenticated install amxa-webmenu-extra
+apt-get --yes --allow-unauthenticated install amxa-webfs
 
 ###############################################################3
 for P in ${EXTRA_PACKAGES}; do
@@ -118,7 +120,7 @@ for N in $(ls /install/debs/*.deb); do
    echo
    echo "instaliere ${N} ..."
    echo
-   dpkg -i ${N}
+   dpkg --force-confnew -i ${N}
  #  rm ${N}
 done
 echo "ok"
@@ -137,7 +139,7 @@ echo "ok"
 
 
 # install missing dependencies
-apt-get --yes -f install
+apt-get --yes -o Dpkg::Options::=--force-confnew -f install
 
 #remove big not important packages
 PURGEA=" extremetuxracer extremetuxracer-data extremetuxracer-extras  supertuxkart supertuxkart-data  xmoto xmoto-data neverball neverball-common neverball-data scribus-doc qt4-doc gimp-help-sv libreoffice-help-sv libreoffice-help-fi "

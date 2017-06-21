@@ -6,7 +6,7 @@ else
   FREE="0"
 fi
 
-apt-get --yes install qemu-kvm squashfs-tools
+apt-get --yes install qemu-kvm squashfs-tools aufs-tools
 
 # root tree with patch files
 
@@ -67,10 +67,10 @@ mount -r -o loop ${IMG}.img ${IMG}.rofs
 #mount -o loop ${IMG}.patch.img ${IMG}.rofs
 
 #
-mount -t overlayfs -o rw,upperdir=${IMG}.rwfs,lowerdir=${IMG}.rofs  overlayfs ${IMG}.ovrl
+# mount -t overlayfs -o rw,upperdir=${IMG}.rwfs,lowerdir=${IMG}.rofs  overlayfs ${IMG}.ovrl
 
 
-
+mount -t aufs -o br=${IMG}.rwfs:${IMG}.rofs aufs ${IMG}.ovrl
 
 echo -n "copying files to ${IMG}.ovrl ..."
 
