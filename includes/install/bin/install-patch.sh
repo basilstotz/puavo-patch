@@ -11,7 +11,7 @@ fi
 
 
 # Data
-PASSWD="WaeGg,fsh."
+PASSWD=""
 
 # processing extremetuxracer enigma fillets-ng  virt-manager pauker texlive-latex-extra gcompris-sound-en autossh libreoffice-l10n-fr libreoffice-l10n-de firefox-locale-en firefox-locale-de firefox-locale-fr unoconv debian-goodies 
 
