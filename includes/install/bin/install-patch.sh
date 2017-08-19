@@ -8,10 +8,11 @@ if test "$1" = "free"; then
    echo "bulding free version..."
 fi
 
+WO="$(dirname $0)"
+. $WO/config-trusty.sh
 
+if test -z "$PASSWD"; then echo "pls set password!"; exit 1; fi
 
-# Data
-PASSWD=""
 
 # processing extremetuxracer enigma fillets-ng  virt-manager pauker texlive-latex-extra gcompris-sound-en autossh libreoffice-l10n-fr libreoffice-l10n-de firefox-locale-en firefox-locale-de firefox-locale-fr unoconv debian-goodies 
 
@@ -19,18 +20,12 @@ EXTRA_PACKAGES="xosview pdfshuffler pdftk djmount avidemux handbrake texlive
                 texlive-lang-german texlive-lang-french texlive-lang-english 
                 python-pypdf youtube-dl gnash rygel gummi  rednotebook
                 fonts-crosextra-carlito fonts-crosextra-caladea impressive                                 
-		gcompris-sound-de gcompris-sounds-fr gcompris-sounds-en
+		gcompris-sound-de gcompris-sound-fr gcompris-sound-en
                 gparted sox key-mon screenkey webfs aufs-tools dosemu "
        
 
-if test -z "$PASSWD"; then echo "pls set password!"; exit 1; fi
 
 # Main
-
-###########################to be moved to deb package#################33
-# set root passwd
-echo "root:${PASSWD}" | chpasswd 
-
 
 # no proxy
 mv /etc/apt/apt.conf.d/00ltspbuild-proxy /etc/apt/00ltspbuild-proxy
@@ -89,15 +84,15 @@ apt-get --yes install activinspire activinspire-help-de activresources-core-de a
  
 
 
-
-#from archive.amxa.ch
+from archive.amxa.ch
 apt-get --yes --allow-unauthenticated install amxa-client-extra
 apt-get --yes --allow-unauthenticated install lehreroffice-1.0
 apt-get --yes --allow-unauthenticated install font-basisschrift
 apt-get --yes --allow-unauthenticated install webapps
 apt-get --yes --allow-unauthenticated install webmenu-editor
 apt-get --yes --allow-unauthenticated install amxa-webmenu-extra
-apt-get --yes --allow-unauthenticated install amxa-webfs
+apt-get --yes --allow-unauthenticated -o Dpkg::Options::=--force-confnew  install amxa-webfs
+
 
 ###############################################################3
 for P in ${EXTRA_PACKAGES}; do
@@ -120,7 +115,9 @@ for N in $(ls /install/debs/*.deb); do
    echo
    echo "instaliere ${N} ..."
    echo
+
    dpkg --force-confnew -i ${N}
+
  #  rm ${N}
 done
 echo "ok"
@@ -139,7 +136,11 @@ echo "ok"
 
 
 # install missing dependencies
+
 apt-get --yes -o Dpkg::Options::=--force-confnew -f install
+
+#put webapps in path
+ln -s /usr/share/bin/webapps /usr/bin/webapps
 
 #remove big not important packages
 PURGEA=" extremetuxracer extremetuxracer-data extremetuxracer-extras  supertuxkart supertuxkart-data  xmoto xmoto-data neverball neverball-common neverball-data scribus-doc qt4-doc gimp-help-sv libreoffice-help-sv libreoffice-help-fi "
@@ -160,5 +161,5 @@ done
 #apt-get --yes autoremove
 
 
-echo "ok"
+echo "exiting chroot....."
 exit

@@ -5,6 +5,12 @@ all:
 build:
 	../puavo-patch/bin/patch.sh trusty|tee build.log
 
+build-stretch:
+	../puavo-patch/bin/patch-stretch.sh stretch|tee build-stretch.log
+
+buildfree:
+	../puavo-patch/bin/patch.sh trusty free|tee buildfree.log
+
 gendiffs:
 	./gendiffs.sh|tee gendiff.log
 

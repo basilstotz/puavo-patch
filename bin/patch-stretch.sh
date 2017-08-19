@@ -32,19 +32,10 @@ if ! test -f ${IMG}.img; then
     exit 1
 fi
 
-# if exists, remove old ext4.img
-#if [ -e ${IMG}.patch.img ]; then
-#   echo -n "removing ${IMG}.patch.img ..." 
-#   rm ${IMG}.patch.img
-#   echo "ok"
-#else
-#   echo "no old image, ok."
-#fi
 
 # clone squashfs.img to ext4.img 
-#echo -n "cloning ${IMG}.img to ${IMG}.patch.img ..."
 #puavo-img-clone ${IMG}.img ${IMG}.patch.img
-#echo "ok"
+
 
 echo "umounting ovrl and rofs"
 umount ${IMG}.ovrl
@@ -89,7 +80,14 @@ echo -n "copying files to ${IMG}.ovrl ..."
 # copy patch files from PATCH_HOME to mount point
 
 #old
-cp -r  ${PATCH_HOME}/* ${IMG}.ovrl/.
+cp -r  ${PATCH_HOME}/var ${IMG}.ovrl/.
+cp -r  ${PATCH_HOME}/root ${IMG}.ovrl/.
+
+cp -r  ${PATCH_HOME}/install ${IMG}.ovrl/.
+
+#mkdir -p ${IMG}.ovrl/install
+#mount -o bind ${PATCH_HOME}/install ${IMG}.ovrl/install
+#mount -o remount,ro ${IMG}.ovrl/install
 
 #new
 #cp -r  ${PATCH_HOME}/root/.ssh ${IMG}.ovrl/root/.
@@ -104,14 +102,16 @@ cp -r  ${PATCH_HOME}/* ${IMG}.ovrl/.
 #rmdir ${IMG}.mnt
 echo "ok"
 
+#umount ${IMG}.ovrl/install
 
+#exit
 
 # run install-patch.sh in chroot
 echo -n "patching ${IMG}.ovrl ..."
 if test "$FREE" = "0"; then
-  echo "sh /install/bin/install-patch.sh" | ${PUAVO_DIR_CHROOT} ${IMG}.ovrl
+  echo "sh /install/bin/install-patch-stretch.sh" | ${PUAVO_DIR_CHROOT} ${IMG}.ovrl
 else
-  echo "sh /install/bin/install-patch.sh free" | ${PUAVO_DIR_CHROOT} ${IMG}.ovrl
+  echo "sh /install/bin/install-patch-stretch.sh free" | ${PUAVO_DIR_CHROOT} ${IMG}.ovrl
 fi
 echo "ok"
 
@@ -129,32 +129,41 @@ rsync -rav --delete --size-only  ${IMG}.ovrl/var/cache/apt/archives/ ${PATCH_HOM
 echo -n "removing unsued files ..."
 # remove unused files
 rm    ${IMG}.ovrl/var/cache/apt/archives/*.deb
+
+#umount ${IMG}.ovrl/install
 rm -r ${IMG}.ovrl/install
+
 echo "ok"
 #########################################################################
 
 echo "ok"
 
+###########################################################################
+##########################################################################
 
+# gen image and class name
 VERSION=$(date +%Y-%m-%d-%H%M%S)
 DATE=$(date +%Y%m%d)
 if test "$FREE" = "0"; then
-   IMAGE="ltsp-amxa-${IMG}-${VERSION}-i386"
+   IMAGE="puavo-os-amxa-${IMG}-${VERSION}-amd64"
+   CLASS="amxa"
 else
-   IMAGE="ltsp-amxafree-${IMG}-${VERSION}-i386"
+   IMAGE="puavo-os-amxafree-${IMG}-${VERSION}-amd64"
+   CLASS="amxafree"
 fi
 
-##make squashfs
-#copy image name to image
-mkdir -p ${IMG}.ovrl/etc/ltsp/
-echo "${IMAGE}.img" > ${IMG}.ovrl/etc/ltsp/this_ltspimage_name
-echo "$( cat ${IMG}.ovrl/etc/ltsp/this_ltspimage_release ) (${DATE})">${IMG}.ovrl/etc/ltsp/this_ltspimage_release 
+#set image params
 
-# compress ext4.img to ./tmp/squashfs.img
+echo "${IMAGE}.img" > ${IMG}.ovrl/etc/puavo-image/name
+echo "$( cat ${IMG}.ovrl/etc/puavo-image/release ) (v(${DATE}))">${IMG}.ovrl/etc/puavo-image/release 
+echo "$CLASS" > ${IMG}.ovrl/etc/puavo-image/class
+
+##make squashfs
+
 echo -n "bulding  squash $IMAGE..."
-#${PUAVO_DIR_CLONE} -t squashfs ${IMG}.ovrl $IMAGE
 mksquashfs ${IMG}.ovrl ${IMAGE}.img  -noappend -no-recovery
 # more opts: -b 1048576 -comp xz
+
 echo "ok"
 
 
