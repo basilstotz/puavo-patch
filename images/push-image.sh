@@ -1,11 +1,8 @@
 #!/bin/sh
 
-<<<<<<< HEAD
-=======
 
 SERIES="amxa"
 
->>>>>>> 6d0d6531e9e707afd076ddee5c6b2eb8de70b418
 ID=" -i ssh/id_dsa "
 SSH_OPT=" -e ' ssh -i ssh/id_dsa ' "
 SERVER="root@images.amxa.ch"
@@ -39,23 +36,15 @@ OK="false"
 
 ssh $ID $SERVER touch /opt/ltsp/images/NOTOK
 
-<<<<<<< HEAD
-EXT=$(ssh $ID $SERVER "ls -t /opt/ltsp/images/ltsp-amxa-*-i386.img" | head -n1)
-=======
 EXT=$(ssh $ID $SERVER "ls -t /opt/ltsp/images/ltsp-$SERIES-*-i386.img" | head -n1)
->>>>>>> 6d0d6531e9e707afd076ddee5c6b2eb8de70b418
 EXTERN=$(basename $EXT)
 
 
 if test -n "$1"; then
   IMAGE=$1
 else
-<<<<<<< HEAD
-  IMAGE=$(latest-image)
-=======
 #  IMAGE=$(latest-image)
   IMAGE=$(ls -t ltsp-$SERIES-*-i386.img|head -n1)
->>>>>>> 6d0d6531e9e707afd076ddee5c6b2eb8de70b418
 fi
 
 
@@ -68,13 +57,14 @@ echo "--$EXTERN---$IMAGE--"
 if test "$EXTERN" = "$IMAGE"; then
   echo "same file"
 else
-  RDIFF=$(amxa-rdiff-filename  $EXTERN $IMAGE)
+  RDIFF=$(./amxa-rdiff-filename  $EXTERN $IMAGE)
   echo $RDIFF
   if ! test -e rdiffs/$RDIFF; then
      echo -n "make rdiff ..."
-     amxa-generate-rdiff $EXTERN $IMAGE
+     ./amxa-generate-rdiff $EXTERN $IMAGE
      echo "ok"
   fi
+
 
   echo "$IMAGE" >>images.list
   cat images.list|tail -n 20>images.neu
@@ -124,11 +114,7 @@ echo "ok"
 # cleanup
 #ssh $ID $SERVER "if test -e /home/images/www/$IMAGE.zsync; then rm /home/images/www/$IMAGE.zsync; fi"
 echo -n "external post upload command ..."  
-<<<<<<< HEAD
-  ssh $ID $SERVER "amxa-imageserver-post-upload&"
-=======
-  ssh $ID $SERVER "amxa-imageserver-post-upload $SERIES&"
->>>>>>> 6d0d6531e9e707afd076ddee5c6b2eb8de70b418
+  ssh $ID $SERVER "amxa-imageserver-post-upload $SERIES &"
   ssh $ID $SERVER rm /opt/ltsp/images/NOTOK
 echo "ok"
 
