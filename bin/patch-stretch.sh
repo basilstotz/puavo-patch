@@ -148,14 +148,14 @@ if test "$FREE" = "0"; then
    IMAGE="puavo-os-amxa-${IMG}-${VERSION}-amd64"
    CLASS="amxa"
 else
-   IMAGE="puavo-os-amxafree-${IMG}-${VERSION}-amd64"
-   CLASS="amxafree"
+   IMAGE="puavo-os-freebee-${IMG}-${VERSION}-amd64"
+   CLASS="freebee"
 fi
 
 #set image params
 
 echo "${IMAGE}.img" > ${IMG}.ovrl/etc/puavo-image/name
-echo "$( cat ${IMG}.ovrl/etc/puavo-image/release ) (v(${DATE}))">${IMG}.ovrl/etc/puavo-image/release 
+echo "$( cat ${IMG}.ovrl/etc/puavo-image/release ) (v${DATE})">${IMG}.ovrl/etc/puavo-image/release 
 echo "$CLASS" > ${IMG}.ovrl/etc/puavo-image/class
 
 ##make squashfs

@@ -14,7 +14,7 @@ WO="$(dirname $0)"
 if test -z "$PASSWD"; then echo "pls set password!"; exit 1; fi
 
 # processing extremetuxracer enigma fillets-ng  virt-manager pauker texlive-latex-extra gcompris-sound-en autossh libreoffice-l10n-fr libreoffice-l10n-de firefox-locale-en firefox-locale-de firefox-locale-fr unoconv debian-goodies 
-# avidemux fonts-crosextra-carlito fonts-crosextra-caladea youtube-dl  webfs 
+# avidemux fonts-crosextra-carlito fonts-crosextra-caladea youtube-dl 
 #gcompris-sound-de  gcompris-sound-en   rygel gnome-photoprinter 
 
 # use tracker: gnome-documents gnome-photos gnome-music  
@@ -27,11 +27,11 @@ EXTRA_PACKAGES="xosview pdfshuffler pdftk djmount
 		gcompris-sound-fr kodi 
                 gparted sox key-mon screenkey dosemu 
                 avahi-utils avahi-discover vokoscreen 
-                photofilmstrip photocollage
-                gnome-gmail 
+                photofilmstrip photocollage 
                 gnome-sound-recorder gnome-maps gnome-calendar
-                font-manager california linphone"
-       
+                font-manager california linphone
+                obs-studio
+                minetest minetest-server minetest-mod-*"
 
 
 # no proxy
@@ -78,6 +78,9 @@ echo 'deb http://archive.amxa.ch://ubuntu trusty main' >>/etc/apt/sources.list.d
 #aseba for thymio
 #add-apt-repository ppa:stephane.magnenat/`lsb_release -c -s`
 
+#openboard
+#wget -O - http://depot.primtux.fr/repo/debs/key/PrimTux.gpg.key | apt-key add
+#echo 'deb http://depot.primtux.fr/repo/debs/ Primtux2-Stretch main' >/etc/apt/sources.list.d/primtux.list
 
 
 #get them
@@ -96,12 +99,14 @@ apt-get --yes install owncloud-client
 apt-get --yes  install handbrake 
 
 # install dependency for libdvdcss
-DEBIAN_FRONTEND=noninteractive apt-get --yes  --force-yes install libdvd-pkg
+#no longer needed fixed upstream
+#DEBIAN_FRONTEND=noninteractive apt-get --yes  --force-yes install libdvd-pkg
 
 
 #activinspire
 #apt-get --yes install activinspire activinspire-help-de activresources-core-de activhwr-de
 
+apt-get install openboard
  
 
 
@@ -115,8 +120,8 @@ apt-get --yes --allow-unauthenticated install amxa-webmenu-extra
 apt-get --yes --allow-unauthenticated -o Dpkg::Options::=--force-confnew  install amxa-webfs
 
 #stretch only
-apt-get --yes --allow-unauthenticated install amxa-puavo-os-art
-apt-get --yes --allow-unauthenticated install amxa-client-media
+#apt-get --yes --allow-unauthenticated install amxa-puavo-os-art
+#apt-get --yes --allow-unauthenticated install amxa-client-media
 
 ###############################################################3
 for P in ${EXTRA_PACKAGES}; do
@@ -181,8 +186,11 @@ done
 
 #activinspire
 /install/packages/activinspire/install.sh
+
 #openboard
-/install/packages/openboard/install.sh
+#fixed upstream!!!!
+#/install/packages/openboard/install.sh
+
 #eGalx Touchscreen
 /install/packages/egalax/install.sh
 #xmind
@@ -191,10 +199,13 @@ done
 /install/packages/libreoffice/install.sh
 # argos and amxa-xrand-clone plugin
 /install/packages/argos/install.sh
+# vmarker
+/install/packages/vmarker/install.sh
 
 #avidemux
 #do not install avidemux, cause it makestroubles
 #/install/packages/avidemux/install.sh
+
 # install missing dependencies
 DEBIAN_FRONTEND=noninteractive apt-get -o Dpkg::Options::=--force-confnew --yes  --force-yes -f install
 

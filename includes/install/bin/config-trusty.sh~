@@ -1,0 +1,3 @@
+# set root passwd
+PASSWD=""
+echo "root:${PASSWD}" | chpasswd 

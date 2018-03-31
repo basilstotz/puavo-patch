@@ -19,9 +19,10 @@ if test -z "$PASSWD"; then echo "pls set password!"; exit 1; fi
 EXTRA_PACKAGES="xosview pdfshuffler pdftk djmount avidemux handbrake texlive  
                 texlive-lang-german texlive-lang-french texlive-lang-english 
                 python-pypdf youtube-dl gnash rygel gummi  rednotebook
-                fonts-crosextra-carlito fonts-crosextra-caladea impressive                                 
+                fonts-crosextra-carlito fonts-crosextra-caladea impressive
 		gcompris-sound-de gcompris-sound-fr gcompris-sound-en
-                gparted sox key-mon screenkey webfs aufs-tools dosemu "
+                gparted sox key-mon screenkey dosemu 
+                minetest minetest-server minetest-mod-*"
        
 
 
@@ -55,16 +56,24 @@ echo 'deb http://download.opensuse.org/repositories/isv:/ownCloud:/desktop/Ubunt
 #amxa 
 echo 'deb http://archive.amxa.ch://ubuntu trusty main' >>/etc/apt/sources.list.d/amxa-archive.list
 
+#obs
+add-apt-repository --yes ppa:kirillshkrogalev/ffmpeg-next
+add-apt-repository --yes ppa:obsproject/obs-studio
+
+
+
 #promethean
-wget http://activsoftware.co.uk/linux/repos/Promethean.asc -O promethean.key
+#wget http://activsoftware.co.uk/linux/repos/Promethean.asc -O promethean.key
 apt-key add promethean.key 
 
 cn=`lsb_release -c|awk '{print $2}'`
 
-echo 'deb http://activsoftware.co.uk/linux/repos/ubuntu trusty oss non-oss' >>/etc/apt/sources.list.d/promethean.list
+#echo 'deb http://activsoftware.co.uk/linux/repos/ubuntu precise oss non-oss' >>/etc/apt/sources.list.d/promethean.list
 
 #aseba for thymio
-add-apt-repository ppa:stephane.magnenat/`lsb_release -c -s`
+
+# temp fixed on 1.5.5 
+add-apt-repository --yes ppa:stephane.magnenat/`lsb_release -c -s`
 
 
 
@@ -76,23 +85,50 @@ apt-get --yes update
 apt-get --yes install owncloud-client
 apt-get --yes install aseba
 apt-get --yes install google-drive-ocamlfuse
+apt-get --yes install ffmpeg
+apt-get --yes install obs-studio
+
+cp /usr/share/applications/obs.desktop /usr/share/applications/obs-studio.desktop
 
 
+#apt-get --yes install activinspire activinspire-help-de activresources-core-de activhwr-de
 
-apt-get --yes install activinspire activinspire-help-de activresources-core-de activhwr-de
+# install *.deb in activ-trusty
+for N in $(ls /install/activ-trusty/*.deb); do
+   echo
+   echo "instaliere ${N} ..."
+   echo
 
+   dpkg  -i ${N}
+
+done
+
+# install missing dependencies
+apt-get --yes -f install
+
+echo "ok"
+
+
+if false; then
+  #from archive.amxa.ch
+  apt-get --yes --allow-unauthenticated install amxa-client-extra
+  apt-get --yes --allow-unauthenticated install lehreroffice-1.0
+  apt-get --yes --allow-unauthenticated install font-basisschrift
+  apt-get --yes --allow-unauthenticated install webapps
+  #apt-get --yes --allow-unauthenticated install webmenu-editor
+  apt-get --yes --allow-unauthenticated install amxa-webmenu-extra
+  #apt-get --yes --allow-unauthenticated install amxa-client-media
+  apt-get --yes --allow-unauthenticated -o Dpkg::Options::=--force-confnew  install amxa-webfs
+else
+apt-get --yes install webfs
+  for N in $(ls /install/base-debs/*.deb); do
+    echo
+    echo "instaliere ${N} ..."
+    echo
  
-
-
-from archive.amxa.ch
-apt-get --yes --allow-unauthenticated install amxa-client-extra
-apt-get --yes --allow-unauthenticated install lehreroffice-1.0
-apt-get --yes --allow-unauthenticated install font-basisschrift
-apt-get --yes --allow-unauthenticated install webapps
-apt-get --yes --allow-unauthenticated install webmenu-editor
-apt-get --yes --allow-unauthenticated install amxa-webmenu-extra
-apt-get --yes --allow-unauthenticated -o Dpkg::Options::=--force-confnew  install amxa-webfs
-
+    dpkg  -i ${N}
+  done
+fi  
 
 ###############################################################3
 for P in ${EXTRA_PACKAGES}; do
@@ -139,8 +175,12 @@ echo "ok"
 
 apt-get --yes -o Dpkg::Options::=--force-confnew -f install
 
-#put webapps in path
+#put webapps in path (is this allready in deb?)
 ln -s /usr/share/bin/webapps /usr/bin/webapps
+
+#link icons to be compliant with stretch
+mkdir -p /usr/share/icons/oxygen/base/
+ln -s /usr/share/icons/oxygen/64x64 /usr/share/icons/oxygen/base/
 
 #remove big not important packages
 PURGEA=" extremetuxracer extremetuxracer-data extremetuxracer-extras  supertuxkart supertuxkart-data  xmoto xmoto-data neverball neverball-common neverball-data scribus-doc qt4-doc gimp-help-sv libreoffice-help-sv libreoffice-help-fi "
@@ -148,7 +188,7 @@ PURGEA=" extremetuxracer extremetuxracer-data extremetuxracer-extras  supertuxka
 PURGEB=" texlive-latex-extra-doc texlive-fonts-extra texlive-fonts-extra-doc texlive-pictures-doc texlive-pstricks-doc texlive-latex-base-doc texlive-latex-recommended-doc texlive-pstricks-doc "
 #remove packages for secondary and ternary schools 
 #PURGEC= "racket racket-common racket-doc fritzing fritzing-data globilab vstloggerpro cmaptools maxima tmcbeans pycharm maxima-doc "
-PURGEC= " racket-doc maxima-doc " 
+PURGEC=" racket-doc maxima-doc " 
 #
 for N in $PURGEA $PURGEB $PURGEC; do
   apt-get --yes purge $N
