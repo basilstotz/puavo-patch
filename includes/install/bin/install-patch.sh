@@ -43,7 +43,7 @@ echo -n "installiere Zusatzpakete ..."
 
 
 #gdrive
-add-apt-repository ppa:alessandro-strada/ppa
+#add-apt-repository ppa:alessandro-strada/ppa
 
 
 #owncloud
@@ -54,7 +54,7 @@ rm Release.key
 echo 'deb http://download.opensuse.org/repositories/isv:/ownCloud:/desktop/Ubuntu_14.04/ /' >> /etc/apt/sources.list.d/owncloud-client.list
 
 #amxa 
-echo 'deb http://archive.amxa.ch://ubuntu trusty main' >>/etc/apt/sources.list.d/amxa-archive.list
+#echo 'deb http://archive.amxa.ch://ubuntu trusty main' >>/etc/apt/sources.list.d/amxa-archive.list
 
 #obs
 add-apt-repository --yes ppa:kirillshkrogalev/ffmpeg-next
@@ -84,7 +84,7 @@ apt-get --yes update
 
 apt-get --yes install owncloud-client
 apt-get --yes install aseba
-apt-get --yes install google-drive-ocamlfuse
+#apt-get --yes install google-drive-ocamlfuse
 apt-get --yes install ffmpeg
 apt-get --yes install obs-studio
 
@@ -120,7 +120,7 @@ if false; then
   #apt-get --yes --allow-unauthenticated install amxa-client-media
   apt-get --yes --allow-unauthenticated -o Dpkg::Options::=--force-confnew  install amxa-webfs
 else
-apt-get --yes install webfs
+apt-get --yes install webfs vde2
   for N in $(ls /install/base-debs/*.deb); do
     echo
     echo "instaliere ${N} ..."
@@ -129,6 +129,8 @@ apt-get --yes install webfs
     dpkg  -i ${N}
   done
 fi  
+# install missing dependencies
+apt-get --yes -f install
 
 ###############################################################3
 for P in ${EXTRA_PACKAGES}; do
@@ -137,6 +139,8 @@ done
 
 # install missing dependencies
 apt-get --yes -f install
+
+
 
 #apt-get --yes clean
 #apt-get --yes autoclean
@@ -174,6 +178,20 @@ echo "ok"
 # install missing dependencies
 
 apt-get --yes -o Dpkg::Options::=--force-confnew -f install
+
+#################################################################
+# packages
+###################################################################
+
+# primalogo
+/install/packages/primalogo/install.sh
+# sprachstarken
+/install/packages/sprachstarken/install.sh
+
+# install missing dependencies
+apt-get --yes -f install
+
+
 
 #put webapps in path (is this allready in deb?)
 ln -s /usr/share/bin/webapps /usr/bin/webapps

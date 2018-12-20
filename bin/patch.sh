@@ -6,6 +6,10 @@ else
   FREE="0"
 fi
 
+echo -n "copying base-debs..."
+/media/stotz.basil/Puavo/git/update-base-debs.sh
+echo "ok"
+
 
 #apt-get --yes install qemu-kvm squashfs-tools aufs-tools
 
@@ -79,8 +83,10 @@ mount -r -o loop ${IMG}.img ${IMG}.rofs
 
 mount -t overlayfs -o rw,upperdir=${IMG}.rwfs,lowerdir=${IMG}.rofs  overlayfs ${IMG}.ovrl
 
-
-
+# thouws an error (andis not needed)
+#if test -d ${IMG}.ovrl/opt/TINspireCXCASStudentSoftware; then
+#  rm -r ${IMG}.ovrl/opt/TINspireCXCASStudentSoftware
+#fi
 
 
 echo -n "copying files to ${IMG}.ovrl ..."

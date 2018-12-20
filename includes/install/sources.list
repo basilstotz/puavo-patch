@@ -1,0 +1,25 @@
+deb http://httpredir.debian.org/debian stretch main contrib non-free
+deb-src http://httpredir.debian.org/debian stretch main contrib non-free
+
+deb http://httpredir.debian.org/debian stretch-updates main contrib non-free
+deb-src http://httpredir.debian.org/debian stretch-updates main contrib non-free
+
+
+deb http://httpredir.debian.org/debian stretch-backports main contrib non-free
+deb-src http://httpredir.debian.org/debian stretch-backports main contrib non-free
+
+
+deb http://security.debian.org/ stretch/updates main contrib non-free
+deb-src http://security.debian.org/ stretch/updates main contrib non-free
+
+
+# This has the origin "puavo-os-local".
+#deb [trusted=yes] file:///puavo-os/debs/.archive /
+
+
+# Use the opinsys-archive for Puavo.  This should contain mostly the same
+# as the localmirror at "file:///puavo-os/debs/.archive /" (above), but
+# possibly also the 32-bit builds such as wine32.  These have the origin
+# "puavo-os-remote".
+deb http://archive.opinsys.fi/puavo stretch main contrib non-free
+deb-src http://archive.opinsys.fi/puavo stretch main contrib non-free

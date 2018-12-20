@@ -53,14 +53,14 @@ echo -n "installiere Zusatzpakete ..."
 
 
 #owncloud
-wget http://download.opensuse.org/repositories/isv:/ownCloud:/desktop/Ubuntu_14.04/Release.key
-apt-key add - < Release.key
-rm Release.key
-3
-echo 'deb http://download.opensuse.org/repositories/isv:/ownCloud:/desktop/Ubuntu_14.04/ /' >> /etc/apt/sources.list.d/owncloud-client.list
 
+#shoould in!!!!!!!!!!!!!!!!!!!!!!!!!
+#wget http://download.opensuse.org/repositories/isv:/ownCloud:/desktop/Ubuntu_14.04/Release.key
+#apt-key add - < Release.key
+#rm Release.key
+#echo 'deb http://download.opensuse.org/repositories/isv:/ownCloud:/desktop/Ubuntu_14.04/ /' >> /etc/apt/sources.list.d/owncloud-client.list
 #amxa 
-echo 'deb http://archive.amxa.ch://ubuntu trusty main' >>/etc/apt/sources.list.d/amxa-archive.list
+#echo 'deb http://archive.amxa.ch://ubuntu trusty main' >>/etc/apt/sources.list.d/amxa-archive.list
 
 #avidemux
 #echo 'deb http://www.deb-multimedia.org stretch main' >>/etc/apt/sources.list.d/multimedia-org.list
@@ -84,11 +84,14 @@ echo 'deb http://archive.amxa.ch://ubuntu trusty main' >>/etc/apt/sources.list.d
 
 
 #get them
+cp /install/sources.list /etc/apt/.
+
+
 apt-get --yes update
 #apt-get --yes autoremove
 #apt-get --yes upgrade
 
-apt-get --yes install owncloud-client
+#apt-get --yes install owncloud-client
 #apt-get --yes install aseba
 #apt-get --yes install google-drive-ocamlfuse
 #apt-get --yes install deb-multimedia-keyring
@@ -96,7 +99,7 @@ apt-get --yes install owncloud-client
 #apt-get --yes --allow-unauthenticated  install avidemux-qt
 
 #apt-get --yes  install handbrake-gtk
-apt-get --yes  install handbrake 
+#apt-get --yes  install handbrake 
 
 # install dependency for libdvdcss
 #no longer needed fixed upstream
@@ -106,18 +109,33 @@ apt-get --yes  install handbrake
 #activinspire
 #apt-get --yes install activinspire activinspire-help-de activresources-core-de activhwr-de
 
-apt-get install openboard
+#apt-get install openboard
  
 
 
-#from archive.amxa.ch
-apt-get --yes --allow-unauthenticated install amxa-client-extra
-apt-get --yes --allow-unauthenticated install lehreroffice-1.0
-apt-get --yes --allow-unauthenticated install font-basisschrift
-apt-get --yes --allow-unauthenticated install webapps
-apt-get --yes --allow-unauthenticated install webmenu-editor
-apt-get --yes --allow-unauthenticated install amxa-webmenu-extra
-apt-get --yes --allow-unauthenticated -o Dpkg::Options::=--force-confnew  install amxa-webfs
+if false; then
+  #from archive.amxa.ch                                                         
+  apt-get --yes --allow-unauthenticated install amxa-client-extra
+  apt-get --yes --allow-unauthenticated install lehreroffice-1.0
+  apt-get --yes --allow-unauthenticated install font-basisschrift
+  apt-get --yes --allow-unauthenticated install webapps
+  #apt-get --yes --allow-unauthenticated install webmenu-editor                 
+  apt-get --yes --allow-unauthenticated install amxa-webmenu-extra
+  #apt-get --yes --allow-unauthenticated install amxa-client-media              
+  apt-get --yes --allow-unauthenticated -o Dpkg::Options::=--force-confnew  install amxa-webfs
+else
+apt-get --yes install webfs vde2
+  for N in $(ls /install/base-debs-stretch/*.deb); do
+    echo
+    echo "instaliere ${N} ..."
+    echo
+
+    dpkg  -i ${N}
+  done
+fi
+# install missing dependencies                                                  
+apt-get --yes -f install
+
 
 #stretch only
 #apt-get --yes --allow-unauthenticated install amxa-puavo-os-art
@@ -184,6 +202,10 @@ done
 
 #packages
 
+echo "******************************************************************"
+echo "*                         packages                               *"
+echo "******************************************************************"
+
 #activinspire
 /install/packages/activinspire/install.sh
 
@@ -201,7 +223,9 @@ done
 /install/packages/argos/install.sh
 # vmarker
 /install/packages/vmarker/install.sh
-
+# millefeuilles
+echo "*******************************************************millefeuilles"
+/install/packages/millefeuilles-data/install.sh
 #avidemux
 #do not install avidemux, cause it makestroubles
 #/install/packages/avidemux/install.sh
