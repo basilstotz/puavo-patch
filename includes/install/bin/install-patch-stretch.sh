@@ -30,7 +30,7 @@ EXTRA_PACKAGES="xosview pdfshuffler pdftk djmount
                 photofilmstrip photocollage 
                 gnome-sound-recorder gnome-maps gnome-calendar
                 font-manager california linphone
-                obs-studio
+                obs-studio webfs vde2
                 minetest minetest-server minetest-mod-*"
 
 
@@ -48,83 +48,14 @@ echo -n "installiere Zusatzpakete ..."
 
 
 
-#gdrive
-#add-apt-repository ppa:alessandro-strada/ppa
-
-
-#owncloud
-
-#shoould in!!!!!!!!!!!!!!!!!!!!!!!!!
-#wget http://download.opensuse.org/repositories/isv:/ownCloud:/desktop/Ubuntu_14.04/Release.key
-#apt-key add - < Release.key
-#rm Release.key
-#echo 'deb http://download.opensuse.org/repositories/isv:/ownCloud:/desktop/Ubuntu_14.04/ /' >> /etc/apt/sources.list.d/owncloud-client.list
-#amxa 
-#echo 'deb http://archive.amxa.ch://ubuntu trusty main' >>/etc/apt/sources.list.d/amxa-archive.list
-
-#avidemux
-#echo 'deb http://www.deb-multimedia.org stretch main' >>/etc/apt/sources.list.d/multimedia-org.list
-#apt-get install  --yes --allow-unauthenticated  deb-multimedia-keyring
-
-
-#promethean
-#wget http://activsoftware.co.uk/linux/repos/Promethean.asc -O promethean.key
-#apt-key add promethean.key 
-
-#cn=`lsb_release -c|awk '{print $2}'`
-
-#echo 'deb http://activsoftware.co.uk/linux/repos/ubuntu trusty oss non-oss' >>/etc/apt/sources.list.d/promethean.list
-
-#aseba for thymio
-#add-apt-repository ppa:stephane.magnenat/`lsb_release -c -s`
-
-#openboard
-#wget -O - http://depot.primtux.fr/repo/debs/key/PrimTux.gpg.key | apt-key add
-#echo 'deb http://depot.primtux.fr/repo/debs/ Primtux2-Stretch main' >/etc/apt/sources.list.d/primtux.list
-
 
 #get them
-cp /install/sources.list /etc/apt/.
+#cp /install/sources.list /etc/apt/.
 
 
-apt-get --yes update
-#apt-get --yes autoremove
-#apt-get --yes upgrade
-
-#apt-get --yes install owncloud-client
-#apt-get --yes install aseba
-#apt-get --yes install google-drive-ocamlfuse
-#apt-get --yes install deb-multimedia-keyring
-#apt-get --yes --allow-unauthenticated  install avidemux
-#apt-get --yes --allow-unauthenticated  install avidemux-qt
-
-#apt-get --yes  install handbrake-gtk
-#apt-get --yes  install handbrake 
-
-# install dependency for libdvdcss
-#no longer needed fixed upstream
-#DEBIAN_FRONTEND=noninteractive apt-get --yes  --force-yes install libdvd-pkg
+#apt-get --yes update
 
 
-#activinspire
-#apt-get --yes install activinspire activinspire-help-de activresources-core-de activhwr-de
-
-#apt-get install openboard
- 
-
-
-if false; then
-  #from archive.amxa.ch                                                         
-  apt-get --yes --allow-unauthenticated install amxa-client-extra
-  apt-get --yes --allow-unauthenticated install lehreroffice-1.0
-  apt-get --yes --allow-unauthenticated install font-basisschrift
-  apt-get --yes --allow-unauthenticated install webapps
-  #apt-get --yes --allow-unauthenticated install webmenu-editor                 
-  apt-get --yes --allow-unauthenticated install amxa-webmenu-extra
-  #apt-get --yes --allow-unauthenticated install amxa-client-media              
-  apt-get --yes --allow-unauthenticated -o Dpkg::Options::=--force-confnew  install amxa-webfs
-else
-apt-get --yes install webfs vde2
   for N in $(ls /install/base-debs-stretch/*.deb); do
     echo
     echo "instaliere ${N} ..."
@@ -132,14 +63,11 @@ apt-get --yes install webfs vde2
 
     dpkg  -i ${N}
   done
-fi
+
 # install missing dependencies                                                  
 apt-get --yes -f install
 
 
-#stretch only
-#apt-get --yes --allow-unauthenticated install amxa-puavo-os-art
-#apt-get --yes --allow-unauthenticated install amxa-client-media
 
 ###############################################################3
 for P in ${EXTRA_PACKAGES}; do
@@ -186,52 +114,6 @@ echo "ok"
 # install missing dependencies
 DEBIAN_FRONTEND=noninteractive apt-get -o Dpkg::Options::=--force-confnew --yes  --force-yes  -f install
 
-#apt-get --yes -o Dpkg::Options::=--force-confnew -f install
-
-#ls
-# temp patches
-#
-#patches
-ln -s /usr/bin/google-chrome-stable /usr/bin/chromium-browser
-
-
-#libreoffice
-for N in /usr/lib/libreoffice/share/xdg/*.desktop; do
-    ln -s $N /usr/share/applications/libreoffice-$(basename ${N})
-done
-
-#packages
-
-echo "******************************************************************"
-echo "*                         packages                               *"
-echo "******************************************************************"
-
-#activinspire
-/install/packages/activinspire/install.sh
-
-#openboard
-#fixed upstream!!!!
-#/install/packages/openboard/install.sh
-
-#eGalx Touchscreen
-/install/packages/egalax/install.sh
-#xmind
-/install/packages/xmind/install.sh
-# templates for lobreoffice
-/install/packages/libreoffice/install.sh
-# argos and amxa-xrand-clone plugin
-/install/packages/argos/install.sh
-# vmarker
-/install/packages/vmarker/install.sh
-# millefeuilles
-echo "*******************************************************millefeuilles"
-/install/packages/millefeuilles-data/install.sh
-#avidemux
-#do not install avidemux, cause it makestroubles
-#/install/packages/avidemux/install.sh
-
-# install missing dependencies
-DEBIAN_FRONTEND=noninteractive apt-get -o Dpkg::Options::=--force-confnew --yes  --force-yes -f install
 
 
 #remove big not important packages

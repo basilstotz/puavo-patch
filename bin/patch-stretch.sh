@@ -9,9 +9,13 @@ fi
 
 #apt-get --yes install qemu-kvm squashfs-tools aufs-tools
 
-apt-get --yes install qemu-kvm squashfs-tools
+apt-get --yes install squashfs-tools
 
-modprobe overlayfs
+
+if ! modprobe overlay; then
+  echo "no overlay fs"
+  exit 1
+fi
 
 # root tree with patch files
 
@@ -41,12 +45,15 @@ echo "umounting ovrl and rofs"
 umount ${IMG}.ovrl
 umount ${IMG}.rofs
 
+if  test -d ${IMG}.work; then rm -r ${IMG}.work;fi
+
 #rm -r tmp.* &
 
 #make mountpounts
 if ! test -d ${IMG}.ovrl; then mkdir ${IMG}.ovrl;fi
 if ! test -d ${IMG}.rofs; then mkdir ${IMG}.rofs;fi
 if ! test -d ${IMG}.rwfs; then mkdir ${IMG}.rwfs;fi
+if ! test -d ${IMG}.work; then mkdir ${IMG}.work;fi
 
 echo "updating rwfs" 
 #clean rwfs
@@ -68,9 +75,9 @@ mount -r -o loop ${IMG}.img ${IMG}.rofs
 
 #mount -t aufs -o br=${IMG}.rwfs:${IMG}.rofs aufs ${IMG}.ovrl
 
-mount -t overlayfs -o rw,upperdir=${IMG}.rwfs,lowerdir=${IMG}.rofs  overlayfs ${IMG}.ovrl
+# mount -t overlayfs -o rw,upperdir=${IMG}.rwfs,lowerdir=${IMG}.rofs  overlayfs ${IMG}.ovrl
 
-
+mount -t overlay   overlay -olowerdir=${IMG}.rofs,upperdir=${IMG}.rwfs,workdir=${IMG}.work  ${IMG}.ovrl
 
 
 
@@ -145,8 +152,8 @@ echo "ok"
 VERSION=$(date +%Y-%m-%d-%H%M%S)
 DATE=$(date +%Y%m%d)
 if test "$FREE" = "0"; then
-   IMAGE="puavo-os-amxa-${IMG}-${VERSION}-amd64"
-   CLASS="amxa"
+   IMAGE="puavo-os-nonfree-${IMG}-${VERSION}-amd64"
+   CLASS="nonfree"
 else
    IMAGE="puavo-os-freebee-${IMG}-${VERSION}-amd64"
    CLASS="freebee"
